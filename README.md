@@ -17,6 +17,9 @@ chsh -s /bin/zsh
 ```
 
 ## homebrew
+```
+sh ./brew.sh
+```
 
 ## VSCode Extension
 
