@@ -4,7 +4,21 @@
 
 ```
 cd ~
-ln -s ~/dotfiles/.zshrc ~
+ln -sf ~/dotfiles/.zshrc ~
+```
+
+## prezto
+```
+cd ~
+zsh
+git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+sh ./link.sh
+chsh -s /bin/zsh
+```
+
+## homebrew
+```
+sh ./brew.sh
 ```
 
 ## VSCode Extension
