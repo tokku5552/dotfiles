@@ -10,9 +10,6 @@ export PATH=$PATH:$HOME/fvm/default/bin:/usr/local/Cellar/cocoapods/1.10.0/bin
 export PATH=$PATH:$HOME/.pub-cache/bin
 export PATH=$PATH:~/development/flutter/bin
 
-# nodebrew
-export PATH=$HOME/.nodebrew/current/bin:$PATH
-
 # ruby
 [[ -d ~/.rbenv ]] &&
   export PATH=${HOME}/.rbenv/bin:${PATH} &&
@@ -25,10 +22,11 @@ export PATH=$HOME/.nodebrew/current/bin:$PATH
   export PATH="/usr/local/opt/bison/bin:$PATH"
 
 # for golang
-eval "$(/opt/homebrew/bin/brew shellenv)"
-export PATH="$PATH:/opt/homebrew/bin"
-export GOPATH="$HOME/go"
-export PATH="$GOPATH/bin:$PATH"
+[[ -d /opt/homebrew/bin/brew ]] &&
+  eval "$(/opt/homebrew/bin/brew shellenv)" &&
+  export PATH="$PATH:/opt/homebrew/bin" &&
+  export GOPATH="$HOME/go" &&
+  export PATH="$GOPATH/bin:$PATH"
 
 # for nodeenv
 export PATH="$HOME/.nodenv/bin:$PATH"
