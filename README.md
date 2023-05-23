@@ -8,17 +8,28 @@ ln -sf ~/dotfiles/.zshrc ~
 ```
 
 ## prezto
+
 ```
 cd ~
 zsh
 git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
-sh ./link.sh
+cd ~/dotfiles
+make link
 chsh -s /bin/zsh
 ```
 
-## homebrew
+ricty を Brewfile からインストールした後
+
 ```
-sh ./brew.sh
+which ricty
+cp -f /usr/local/opt/ricty/share/fonts/Ricty*.ttf ~/Library/Fonts/
+fc-cache -vf
+```
+
+## homebrew
+
+```
+make brew
 ```
 
 ## VSCode Extension
