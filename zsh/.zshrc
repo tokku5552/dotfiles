@@ -22,9 +22,9 @@ export PATH=$PATH:~/development/flutter/bin
   export PATH="/usr/local/opt/bison/bin:$PATH"
 
 # for golang
-eval "$(/opt/homebrew/bin/brew shellenv)" 
-export PATH="$PATH:/opt/homebrew/bin" 
-export GOPATH="$HOME/go" 
+eval "$(brew shellenv)"
+export PATH="$PATH:/opt/homebrew/bin"
+export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
 
 # for nodeenv
