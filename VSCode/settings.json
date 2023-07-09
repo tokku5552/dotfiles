@@ -1,104 +1,105 @@
 {
+  "editor.formatOnSave": true,
+  "yaml.schemas": {
+    "https://d33vqc0rt9ld30.cloudfront.net/latest/gzip/CloudFormationResourceSpecification.json": [
+      "*.cf.yaml",
+      "*.cf.yml",
+      "*.cfn/*.yaml",
+      "*.cfn/*.yml",
+      "cloud*formation/*.yaml",
+      "cloud*formation/*.yml",
+      "CFn/*.yaml",
+      "CFn/*.yml"
+    ]
+  },
+  "yaml.customTags": [
+    "!Ref",
+    "!Sub scalar",
+    "!Sub sequence",
+    "!Join sequence",
+    "!FindInMap sequence",
+    "!GetAtt scalar",
+    "!GetAtt sequence",
+    "!Base64",
+    "!GetAZs",
+    "!Select scalar",
+    "!Select sequence",
+    "!Split sequence",
+    "!ImportValue",
+    "!Condition",
+    "!Equals sequence",
+    "!And",
+    "!If",
+    "!Not",
+    "!Or",
+    "!Cidr sequence"
+  ],
+  "workbench.startupEditor": "none",
+  "dart.runPubGetOnPubspecChanges": "never",
+  "vetur.completion.scaffoldSnippetSources": {
+    "workspace": "💼",
+    "user": "🗒️",
+    "vetur": "✌"
+  },
+  "[python]": {
+    "editor.formatOnType": true
+  },
+  "editor.inlineSuggest.enabled": true,
+  "github.copilot.enable": {
+    "*": true,
+    "yaml": true,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "terminal.integrated.profile.windows": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "liveServer.settings.donotShowInfoMsg": true,
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter.notebook.ipynb"
+  },
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  },
+  "redhat.telemetry.enabled": true,
+  "explorer.confirmDragAndDrop": false,
+  "hediet.vscode-drawio.theme": "min",
+  "files.eol": "\n",
+  "security.workspace.trust.untrustedFiles": "open",
+  "hediet.vscode-drawio.customColorSchemes": [],
+  "terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
+  "[dart]": {
     "editor.formatOnSave": true,
-    "yaml.schemas": {
-      "https://d33vqc0rt9ld30.cloudfront.net/latest/gzip/CloudFormationResourceSpecification.json": [
-        "*.cf.yaml",
-        "*.cf.yml",
-        "*.cfn/*.yaml",
-        "*.cfn/*.yml",
-        "cloud*formation/*.yaml",
-        "cloud*formation/*.yml",
-        "CFn/*.yaml",
-        "CFn/*.yml"
-      ]
-    },
-    "yaml.customTags": [
-      "!Ref",
-      "!Sub scalar",
-      "!Sub sequence",
-      "!Join sequence",
-      "!FindInMap sequence",
-      "!GetAtt scalar",
-      "!GetAtt sequence",
-      "!Base64",
-      "!GetAZs",
-      "!Select scalar",
-      "!Select sequence",
-      "!Split sequence",
-      "!ImportValue",
-      "!Condition",
-      "!Equals sequence",
-      "!And",
-      "!If",
-      "!Not",
-      "!Or",
-      "!Cidr sequence"
-    ],
-    "workbench.startupEditor": "none",
-    "dart.runPubGetOnPubspecChanges": "never",
-    "vetur.completion.scaffoldSnippetSources": {
-      "workspace": "💼",
-      "user": "🗒️",
-      "vetur": "✌"
-    },
-    "[python]": {
-      "editor.formatOnType": true
-    },
-    "editor.inlineSuggest.enabled": true,
-    "github.copilot.enable": {
-      "*": true,
-      "yaml": true,
-      "plaintext": false,
-      "markdown": false,
-      "scminput": false
-    },
-    "[markdown]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode",
-      "editor.formatOnSave": true
-    },
-    "git.autofetch": true,
-    "git.confirmSync": false,
-    "terminal.integrated.profile.windows": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
-    "[html]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[typescriptreact]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[typescript]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "javascript.updateImportsOnFileMove.enabled": "always",
-    "liveServer.settings.donotShowInfoMsg": true,
-    "workbench.editorAssociations": {
-      "*.ipynb": "jupyter.notebook.ipynb"
-    },
-    "[shellscript]": {
-      "editor.defaultFormatter": "foxundermoon.shell-format"
-    },
-    "[dockerfile]": {
-      "editor.defaultFormatter": "ms-azuretools.vscode-docker"
-    },
-    "redhat.telemetry.enabled": true,
-    "explorer.confirmDragAndDrop": false,
-    "hediet.vscode-drawio.theme": "min",
-    "files.eol": "\n",
-    "security.workspace.trust.untrustedFiles": "open",
-    "hediet.vscode-drawio.customColorSchemes": [],
-    "terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
-    "[dart]": {
-      "editor.formatOnSave": true,
-      "editor.formatOnType": true,
-      "editor.rulers": [80],
-      "editor.selectionHighlight": false,
-      "editor.suggest.snippetsPreventQuickSuggestions": false,
-      "editor.suggestSelection": "first",
-      "editor.tabCompletion": "onlySnippets",
-      "editor.wordBasedSuggestions": false
-    },
-    "[json]": {
-      "editor.defaultFormatter": "vscode.json-language-features"
-    },
-    "workbench.iconTheme": "material-icon-theme",
-    "python.defaultInterpreterPath": "/usr/local/bin/python"
-  }
+    "editor.formatOnType": true,
+    "editor.rulers": [80],
+    "editor.selectionHighlight": false,
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.suggestSelection": "first",
+    "editor.tabCompletion": "onlySnippets",
+    "editor.wordBasedSuggestions": false
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "workbench.iconTheme": "material-icon-theme",
+  "python.defaultInterpreterPath": "/usr/local/bin/python",
+  "leetcode.defaultLanguage": "golang"
+}
