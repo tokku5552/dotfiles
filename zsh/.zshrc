@@ -28,8 +28,8 @@ export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
 
 # for nodeenv
-export PATH="$HOME/.nodenv/bin:$PATH"
-eval "$(nodenv init -)"
+# export PATH="$HOME/.nodenv/bin:$PATH"
+# eval "$(nodenv init -)"
 
 export AWS_REGION="ap-northeast-1"
 
@@ -39,3 +39,5 @@ export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
 # alias
 alias ll='ls -l'
 alias la='ls -la'
+
+. /usr/local/opt/asdf/libexec/asdf.sh

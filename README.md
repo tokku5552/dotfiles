@@ -2,14 +2,14 @@
 
 ## create symbolic link
 
-```
+```zsh
 cd ~
 ln -sf ~/dotfiles/.zshrc ~
 ```
 
 ## prezto
 
-```
+```zsh
 cd ~
 zsh
 git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
@@ -20,7 +20,7 @@ chsh -s /bin/zsh
 
 ricty を Brewfile からインストールした後
 
-```
+```zsh
 which ricty
 cp -f /usr/local/opt/ricty/share/fonts/Ricty*.ttf ~/Library/Fonts/
 fc-cache -vf
@@ -28,7 +28,7 @@ fc-cache -vf
 
 ## homebrew
 
-```
+```zsh
 make brew
 ```
 
@@ -36,7 +36,7 @@ make brew
 
 - Export
 
-```
+```zsh
 code --list-extensions > extensions
 ```
 
@@ -60,4 +60,9 @@ New-Item -Type SymbolicLink -Value .\VSCode\settings.json -Path $env:APPDATA\Cod
 ```shell:
 mv ~/Library/Application\ Support/Code/User/settings.json ~/Library/Application\ Support/Code/User/settings.json.bk
 ln -s ~/dotfiles/VSCode/settings.json ~/Library/Application\ Support/Code/User/settings.json
+
+# for asdf
+echo -e "\n. $(brew --prefix asdf)/libexec/asdf.sh" >> ${ZDOTDIR:-~}/.zshrc
+asdf plugin-add nodejs
+asdf global nodejs 18.16.1
 ```
