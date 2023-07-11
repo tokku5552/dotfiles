@@ -1,5 +1,6 @@
 # Taps
 tap "sanemat/font"
+tap "leoafarias/fvm"
 
 # Casks
 cask "visual-studio-code"

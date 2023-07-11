@@ -40,4 +40,6 @@ export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
 alias ll='ls -l'
 alias la='ls -la'
 
-. /usr/local/opt/asdf/libexec/asdf.sh
+# asdf setting
+. $(brew --prefix asdf)/libexec/asdf.sh
+
