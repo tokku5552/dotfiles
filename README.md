@@ -64,5 +64,6 @@ ln -s ~/dotfiles/VSCode/settings.json ~/Library/Application\ Support/Code/User/s
 # for asdf
 echo -e "\n. $(brew --prefix asdf)/libexec/asdf.sh" >> ${ZDOTDIR:-~}/.zshrc
 asdf plugin-add nodejs
+asdf install nodejs 18.16.1
 asdf global nodejs 18.16.1
 ```
