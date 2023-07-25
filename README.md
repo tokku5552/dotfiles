@@ -66,4 +66,13 @@ echo -e "\n. $(brew --prefix asdf)/libexec/asdf.sh" >> ${ZDOTDIR:-~}/.zshrc
 asdf plugin-add nodejs
 asdf install nodejs 18.16.1
 asdf global nodejs 18.16.1
+
+# python and poetry
+asdf plugin-add python
+asdf install python 3.8.13
+asdf global python 3.8.13
+
+asdf plugin-add poetry
+asdf install poetry latest
+asdf global poetry latest
 ```
