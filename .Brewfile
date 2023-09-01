@@ -10,6 +10,7 @@ cask "bitwarden"
 cask "iterm2"
 cask "sourcetree"
 cask "ngrok"
+cask "google-cloud-sdk"
 
 # Formulae
 brew "ricty"
