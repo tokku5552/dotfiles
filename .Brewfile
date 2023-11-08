@@ -11,6 +11,7 @@ cask "iterm2"
 cask "sourcetree"
 cask "ngrok"
 cask "google-cloud-sdk"
+cask "android-studio"
 
 # Formulae
 brew "ricty"
@@ -23,3 +24,4 @@ brew "fvm"
 brew "asdf"
 brew "awscli"
 brew "minikube"
+brew "azure-cli"
