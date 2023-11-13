@@ -1,6 +1,7 @@
 # Taps
 tap "sanemat/font"
 tap "leoafarias/fvm"
+tap "azure/functions"
 
 # Casks
 cask "visual-studio-code"
@@ -25,3 +26,4 @@ brew "asdf"
 brew "awscli"
 brew "minikube"
 brew "azure-cli"
+brew "azure-functions-core-tools@4"
