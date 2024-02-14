@@ -43,3 +43,5 @@ alias la='ls -la'
 # asdf setting
 . $(brew --prefix asdf)/libexec/asdf.sh
 
+# for mysql-client
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
