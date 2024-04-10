@@ -45,3 +45,7 @@ alias la='ls -la'
 
 # for mysql-client
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+
+# for java 17
+export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+export JAVA_HOME=`/usr/libexec/java_home -v 17`
