@@ -13,6 +13,7 @@ cask "sourcetree"
 cask "ngrok"
 cask "google-cloud-sdk"
 cask "android-studio"
+cask "arc"
 
 # Formulae
 brew "ricty"
