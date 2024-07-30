@@ -94,12 +94,14 @@
     "editor.suggest.snippetsPreventQuickSuggestions": false,
     "editor.suggestSelection": "first",
     "editor.tabCompletion": "onlySnippets",
-    "editor.wordBasedSuggestions": false
+    "editor.wordBasedSuggestions": "off"
   },
   "[json]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },
   "workbench.iconTheme": "material-icon-theme",
   "python.defaultInterpreterPath": "/usr/local/bin/python",
-  "leetcode.defaultLanguage": "golang"
+  "leetcode.defaultLanguage": "golang",
+  "nxConsole.showNodeVersionOnStartup": false,
+  "makefile.buildBeforeLaunch": false
 }
