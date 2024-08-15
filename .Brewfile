@@ -1,6 +1,5 @@
 # Taps
 tap "sanemat/font"
-tap "homebrew/cask-fonts"
 tap "leoafarias/fvm"
 tap "azure/functions"
 
@@ -32,4 +31,3 @@ brew "azure-functions-core-tools@4"
 brew "mysql-client"
 brew "openjdk@17"
 brew "skaffold"
-brew "font-ricty-diminished"
