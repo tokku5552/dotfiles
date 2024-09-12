@@ -88,3 +88,5 @@ asdf global terraform 1.4.6
 ```bash
 sudo ln -sfn /opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-17.jdk
 ```
+
+test
