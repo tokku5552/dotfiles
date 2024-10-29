@@ -57,3 +57,5 @@ export JAVA_HOME=`/usr/libexec/java_home -v 17`
 
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 export PATH="/opt/homebrew/opt/mysql-client@8.4/bin:$PATH"
+
+eval "$(direnv hook zsh)"
