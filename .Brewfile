@@ -14,6 +14,7 @@ cask "ngrok"
 cask "google-cloud-sdk"
 cask "android-studio"
 cask "arc"
+cask "cursor"
 
 # Formulae
 brew "ricty"
