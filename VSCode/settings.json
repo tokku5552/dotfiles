@@ -103,5 +103,8 @@
   "python.defaultInterpreterPath": "/usr/local/bin/python",
   "leetcode.defaultLanguage": "golang",
   "nxConsole.showNodeVersionOnStartup": false,
-  "makefile.buildBeforeLaunch": false
+  "makefile.buildBeforeLaunch": false,
+  "[ruby]":{
+    "editor.codeActionsOnSave":null
+  }
 }
