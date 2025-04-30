@@ -15,6 +15,7 @@ cask "google-cloud-sdk"
 cask "android-studio"
 cask "arc"
 cask "cursor"
+cask "visual-studio-code@insiders"
 
 # Formulae
 brew "ricty"
