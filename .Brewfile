@@ -16,6 +16,7 @@ cask "android-studio"
 cask "arc"
 cask "cursor"
 cask "visual-studio-code@insiders"
+cask "obsidian"
 
 # Formulae
 brew "ricty"
