@@ -106,5 +106,17 @@
   "makefile.buildBeforeLaunch": false,
   "[ruby]":{
     "editor.codeActionsOnSave":null
-  }
+  },
+  "roo-cline.allowedCommands": [
+    "npm test",
+    "npm install",
+    "tsc",
+    "git log",
+    "git diff",
+    "git show"
+  ],
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "github.copilot.chat.languageContext.fix.typescript.enabled": true,
+  "github.copilot.chat.languageContext.inline.typescript.enabled": true,
+  "github.copilot.chat.languageContext.typescript.enabled": true
 }
