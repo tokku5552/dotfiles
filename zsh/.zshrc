@@ -40,8 +40,13 @@ alias ll='ls -l'
 alias la='ls -la'
 
 # asdf setting
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
-export PATH="/opt/homebrew/opt/asdf/bin:$PATH"
+if [[ -f /opt/homebrew/opt/asdf/libexec/asdf.sh ]]; then
+  . /opt/homebrew/opt/asdf/libexec/asdf.sh
+  export PATH="/opt/homebrew/opt/asdf/bin:$PATH"
+elif [[ -f /usr/local/opt/asdf/libexec/asdf.sh ]]; then
+  . /usr/local/opt/asdf/libexec/asdf.sh
+  export PATH="/usr/local/opt/asdf/bin:$PATH"
+fi
 
 # for npm global tools
 export PATH="$(npm config get prefix)/bin:$PATH"
