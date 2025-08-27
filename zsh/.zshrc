@@ -6,9 +6,9 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # flutter
-export PATH=$PATH:$HOME/fvm/default/bin:/usr/local/Cellar/cocoapods/1.10.0/bin
+export PATH=$PATH:$HOME/fvm/default/bin
 export PATH=$PATH:$HOME/.pub-cache/bin
-export PATH=$PATH:~/development/flutter/bin
+export PATH=$PATH:$HOME/development/flutter/bin
 
 # ruby
 [[ -d ~/.rbenv ]] &&
@@ -27,9 +27,6 @@ export PATH="$PATH:/opt/homebrew/bin"
 export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
 
-# for nodeenv
-# export PATH="$HOME/.nodenv/bin:$PATH"
-# eval "$(nodenv init -)"
 export AWS_REGION="ap-northeast-1"
 
 # other
@@ -40,8 +37,13 @@ alias ll='ls -l'
 alias la='ls -la'
 
 # asdf setting
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
-export PATH="/opt/homebrew/opt/asdf/bin:$PATH"
+if [[ -f /opt/homebrew/opt/asdf/libexec/asdf.sh ]]; then
+  . /opt/homebrew/opt/asdf/libexec/asdf.sh
+  export PATH="/opt/homebrew/opt/asdf/bin:$PATH"
+elif [[ -f /usr/local/opt/asdf/libexec/asdf.sh ]]; then
+  . /usr/local/opt/asdf/libexec/asdf.sh
+  export PATH="/usr/local/opt/asdf/bin:$PATH"
+fi
 
 # for npm global tools
 export PATH="$(npm config get prefix)/bin:$PATH"
