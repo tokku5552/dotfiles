@@ -94,3 +94,23 @@ asdf global terraform 1.4.6
 ```bash
 sudo ln -sfn /opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-17.jdk
 ```
+
+## 環境変数の設定
+
+GitHub で共有しない環境変数を設定する場合：
+
+```bash
+# テンプレートファイルをコピー
+cp zsh/.zshrc.local.example zsh/.zshrc.local
+
+# ローカル設定ファイルを編集
+vim zsh/.zshrc.local
+```
+
+設定可能な環境変数の例：
+- API キー（GitHub、OpenAI、AWS など）
+- データベース認証情報
+- アプリケーション固有の設定
+- 外部サービストークン
+
+**注意**: `.zshrc.local` ファイルは `.gitignore` に含まれているため、GitHub にコミットされません。
