@@ -3,14 +3,11 @@
 # Copy this file to .zshrc.local and modify the values as needed.
 # This file is shared on GitHub as a template.
 #
-# Authors:
-#   Template configuration
-#
-
 # Development shortcuts
-# alias dev="cd ~/development"
-# alias proj="cd ~/projects"
-
+# e.g:
+#   alias dev="cd ~/development"
+#   alias proj="cd ~/projects"
+# 
 # Instructions:
 # 1. Copy this file: cp .zshrc.local.example .zshrc.local
 # 2. Edit .zshrc.local and uncomment/modify the aliases and functions you need
