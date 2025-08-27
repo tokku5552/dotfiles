@@ -1,5 +1,5 @@
 #
-# Example local environment variables file.
+# Example local zshrc configuration file.
 # Copy this file to .zshrc.local and modify the values as needed.
 # This file is shared on GitHub as a template.
 #
@@ -7,33 +7,12 @@
 #   Template configuration
 #
 
-# API Keys and Tokens
-# export GITHUB_TOKEN="your_github_token_here"
-# export OPENAI_API_KEY="your_openai_api_key_here"
-# export AWS_ACCESS_KEY_ID="your_aws_access_key_here"
-# export AWS_SECRET_ACCESS_KEY="your_aws_secret_key_here"
-
-# Database credentials
-# export DATABASE_URL="your_database_url_here"
-# export DB_USERNAME="your_db_username_here"
-# export DB_PASSWORD="your_db_password_here"
-
-# Application specific
-# export APP_ENV="development"
-# export APP_SECRET="your_app_secret_here"
-
-# External services
-# export SLACK_TOKEN="your_slack_token_here"
-# export DISCORD_TOKEN="your_discord_token_here"
-
-# Development tools
-# export DOCKER_HOST="your_docker_host_here"
-# export KUBECONFIG="path/to/your/kubeconfig"
-
-# Personal preferences (optional)
-# export MY_CUSTOM_VAR="your_custom_value_here"
+# Development shortcuts
+# alias dev="cd ~/development"
+# alias proj="cd ~/projects"
 
 # Instructions:
 # 1. Copy this file: cp .zshrc.local.example .zshrc.local
-# 2. Edit .zshrc.local and uncomment/modify the variables you need
+# 2. Edit .zshrc.local and uncomment/modify the aliases and functions you need
 # 3. Never commit .zshrc.local to git (it's already in .gitignore)
+# 4. For environment variables, use .zshenv.local instead

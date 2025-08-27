@@ -10,7 +10,7 @@ if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; t
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
 
-# Load local environment variables (not shared on GitHub)
-if [[ -s "${ZDOTDIR:-$HOME}/.zshrc.local" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zshrc.local"
+# Load local zshenv configuration (not shared on GitHub)
+if [[ -s "${ZDOTDIR:-$HOME}/.zshenv.local" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zshenv.local"
 fi
