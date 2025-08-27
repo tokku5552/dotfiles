@@ -94,3 +94,43 @@ asdf global terraform 1.4.6
 ```bash
 sudo ln -sfn /opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-17.jdk
 ```
+
+## 環境変数の設定
+
+GitHub で共有しない環境変数とエイリアスを設定する場合：
+
+### ローカル設定ファイルの作成
+
+```bash
+# zshrc のローカル設定（エイリアス、関数、対話的設定）
+cp zsh/.zshrc.local.example zsh/.zshrc.local
+
+# zshenv のローカル設定（グローバル環境変数）
+cp zsh/.zshenv.local.example zsh/.zshenv.local
+
+# ローカル設定ファイルを編集
+vim zsh/.zshrc.local
+vim zsh/.zshenv.local
+```
+
+### 設定可能な内容
+
+**`.zshrc.local`（対話的シェル用）:**
+- エイリアス（Git、Docker、Kubernetes など）
+- カスタム関数
+- ローカル PATH 追加
+- プロンプトカスタマイズ
+- キーバインド設定
+- 履歴設定
+- プラグイン設定
+
+**`.zshenv.local`（グローバル環境変数用）:**
+- API キー（GitHub、OpenAI、AWS など）
+- データベース認証情報
+- アプリケーション固有の設定
+- 外部サービストークン
+- グローバル PATH 追加
+- 言語・ロケール設定
+- エディタ設定
+
+**注意**: `.zshrc.local` と `.zshenv.local` ファイルは `.gitignore` に含まれているため、GitHub にコミットされません。

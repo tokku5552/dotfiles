@@ -1,0 +1,14 @@
+#
+# Example local zshenv configuration file.
+# Copy this file to .zshenv.local and modify the values as needed.
+# This file is shared on GitHub as a template.
+#
+# API Keys and Tokens
+# e.g:
+#   export GITHUB_TOKEN="your_github_token_here"
+#   export OPENAI_API_KEY="your_openai_api_key_here"
+#
+# Instructions:
+# 1. Copy this file: cp .zshenv.local.example .zshenv.local
+# 2. Edit .zshenv.local and uncomment/modify the variables you need
+# 3. Never commit .zshenv.local to git (it's already in .gitignore)

@@ -1,1 +1,5 @@
 .Brewfile.lock.json
+
+# Local environment variables (not shared on GitHub)
+zsh/.zshrc.local
+zsh/.zshenv.local

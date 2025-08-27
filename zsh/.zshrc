@@ -78,3 +78,8 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# Load local zshrc configuration (not shared on GitHub)
+if [[ -s "$HOME/dotfiles/zsh/.zshrc.local" ]]; then
+  source "$HOME/dotfiles/zsh/.zshrc.local"
+fi

@@ -1,0 +1,15 @@
+#
+# Example local zshrc configuration file.
+# Copy this file to .zshrc.local and modify the values as needed.
+# This file is shared on GitHub as a template.
+#
+# Development shortcuts
+# e.g:
+#   alias dev="cd ~/development"
+#   alias proj="cd ~/projects"
+# 
+# Instructions:
+# 1. Copy this file: cp .zshrc.local.example .zshrc.local
+# 2. Edit .zshrc.local and uncomment/modify the aliases and functions you need
+# 3. Never commit .zshrc.local to git (it's already in .gitignore)
+# 4. For environment variables, use .zshenv.local instead
