@@ -6,9 +6,9 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # flutter
-export PATH=$PATH:$HOME/fvm/default/bin:/usr/local/Cellar/cocoapods/1.10.0/bin
+export PATH=$PATH:$HOME/fvm/default/bin
 export PATH=$PATH:$HOME/.pub-cache/bin
-export PATH=$PATH:~/development/flutter/bin
+export PATH=$PATH:$HOME/development/flutter/bin
 
 # ruby
 [[ -d ~/.rbenv ]] &&
@@ -27,9 +27,6 @@ export PATH="$PATH:/opt/homebrew/bin"
 export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
 
-# for nodeenv
-# export PATH="$HOME/.nodenv/bin:$PATH"
-# eval "$(nodenv init -)"
 export AWS_REGION="ap-northeast-1"
 
 # other
