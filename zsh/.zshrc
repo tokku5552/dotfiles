@@ -30,7 +30,6 @@ export PATH="$GOPATH/bin:$PATH"
 # for nodeenv
 # export PATH="$HOME/.nodenv/bin:$PATH"
 # eval "$(nodenv init -)"
-
 export AWS_REGION="ap-northeast-1"
 
 # other
@@ -41,7 +40,11 @@ alias ll='ls -l'
 alias la='ls -la'
 
 # asdf setting
-. $(brew --prefix asdf)/libexec/asdf.sh
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+export PATH="/opt/homebrew/opt/asdf/bin:$PATH"
+
+# for npm global tools
+export PATH="$(npm config get prefix)/bin:$PATH"
 
 # for mysql-client
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
