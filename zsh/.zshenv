@@ -11,6 +11,6 @@ if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; t
 fi
 
 # Load local zshenv configuration (not shared on GitHub)
-if [[ -s "${ZDOTDIR:-$HOME}/.zshenv.local" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zshenv.local"
+if [[ -s "$HOME/dotfiles/zsh/.zshenv.local" ]]; then
+  source "$HOME/dotfiles/zsh/.zshenv.local"
 fi
