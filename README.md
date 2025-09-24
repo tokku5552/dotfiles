@@ -28,11 +28,28 @@ fc-cache -vf
 
 ## homebrew
 
+- install & upgrade
+ 
 ```zsh
 make brew
 ```
 
+- .Brewfileのdump
+
+```zsh
+brew bundle dump --global
+```
+
+- brewにインストールされているアプリケーションの一覧出力
+
+```zsh
+
+# cask
+brew list --cask -1
+```
+
 ## VSCode Extension
+<!-- TODO: .Brewfileに統合されているかもしれない -->
 
 - Export
 
@@ -134,3 +151,11 @@ vim zsh/.zshenv.local
 - エディタ設定
 
 **注意**: `.zshrc.local` と `.zshenv.local` ファイルは `.gitignore` に含まれているため、GitHub にコミットされません。
+
+
+## MCP info
+- claude
+  - context7
+  - playwright
+  - sequential-thinking
+  - serena

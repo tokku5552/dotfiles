@@ -35,6 +35,7 @@ export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
 # alias
 alias ll='ls -l'
 alias la='ls -la'
+alias mktoday='mkdir -p $(date +%Y%m%d)'
 
 # asdf setting
 if [[ -f /opt/homebrew/opt/asdf/libexec/asdf.sh ]]; then
