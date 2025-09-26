@@ -44,11 +44,6 @@ ln -sf ~/dotfiles/zsh/.zshenv ~
 backup_if_exists "$HOME/.asdfrc"
 ln -sf ~/dotfiles/asdf/.asdfrc ~
 
-# .claude ディレクトリが存在しない場合は作成
-mkdir -p ~/.claude
-backup_if_exists "$HOME/.claude/CLAUDE.md"
-ln -sf ~/dotfiles/claude/CLAUDE.md ~/.claude/
-
 echo ""
 echo "Symbolic links created successfully!"
 echo ""

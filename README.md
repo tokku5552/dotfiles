@@ -155,6 +155,19 @@ vim zsh/.zshenv.local
 
 **注意**: `.zshrc.local` と `.zshenv.local` ファイルは `.gitignore` に含まれているため、GitHub にコミットされません。
 
+# AI Agent
+
+## Documents
+
+- gemini-cli
+  - https://google-gemini.github.io/gemini-cli/
+- Cursor
+  - https://cursor.com/ja/docs
+- Claude Code
+  - https://docs.claude.com/ja/docs/claude-code/overview
+- Codex CLI
+  - https://github.com/openai/codex
+
 ## MCP info
 
 - SuperClaude
@@ -168,7 +181,5 @@ vim zsh/.zshenv.local
   - fetch
   - mcp-gemini-cli
   - codex
-claude mcp add -s project gemini-cli -- npx mcp-gemini-cli --allow-npx
-claude mcp add fetch -s project -- uvx mcp-server-fetch
-claude mcp add codex -s project codex mcp
+
 
