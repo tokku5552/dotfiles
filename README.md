@@ -154,8 +154,10 @@ vim zsh/.zshenv.local
 
 
 ## MCP info
-- claude
+- SuperClaude
   - context7
   - playwright
   - sequential-thinking
   - serena
+- Official Ref
+  - https://github.com/modelcontextprotocol/servers/tree/main/src/everything
