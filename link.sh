@@ -9,3 +9,5 @@ ln -sf ~/dotfiles/zsh/.zprofile ~
 ln -sf ~/dotfiles/zsh/.zshenv ~
 ln -sf ~/dotfiles/zsh/.zshrc ~
 ln -sf ~/dotfiles/asdf/.asdfrc ~
+
+ln -sf ~/dotfiles/ai/CLAUDE.md ~/.claude/
