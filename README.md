@@ -29,18 +29,18 @@ fc-cache -vf
 ## homebrew
 
 - install & upgrade
- 
+
 ```zsh
 make brew
 ```
 
-- .Brewfileのdump
+- .Brewfile の dump
 
 ```zsh
 brew bundle dump --global
 ```
 
-- brewにインストールされているアプリケーションの一覧出力
+- brew にインストールされているアプリケーションの一覧出力
 
 ```zsh
 
@@ -49,6 +49,7 @@ brew list --cask -1
 ```
 
 ## VSCode Extension
+
 <!-- TODO: .Brewfileに統合されているかもしれない -->
 
 - Export
@@ -101,7 +102,7 @@ asdf global poetry latest
 
 # terraform
 asdf plugin add terraform
-asdf list all terraform 
+asdf list all terraform
 asdf install terraform 1.4.6
 asdf global terraform 1.4.6
 ```
@@ -133,6 +134,7 @@ vim zsh/.zshenv.local
 ### 設定可能な内容
 
 **`.zshrc.local`（対話的シェル用）:**
+
 - エイリアス（Git、Docker、Kubernetes など）
 - カスタム関数
 - ローカル PATH 追加
@@ -142,6 +144,7 @@ vim zsh/.zshenv.local
 - プラグイン設定
 
 **`.zshenv.local`（グローバル環境変数用）:**
+
 - API キー（GitHub、OpenAI、AWS など）
 - データベース認証情報
 - アプリケーション固有の設定
@@ -152,12 +155,31 @@ vim zsh/.zshenv.local
 
 **注意**: `.zshrc.local` と `.zshenv.local` ファイルは `.gitignore` に含まれているため、GitHub にコミットされません。
 
+# AI Agent
+
+## Documents
+
+- gemini-cli
+  - https://google-gemini.github.io/gemini-cli/
+- Cursor
+  - https://cursor.com/ja/docs
+- Claude Code
+  - https://docs.claude.com/ja/docs/claude-code/overview
+- Codex CLI
+  - https://github.com/openai/codex
 
 ## MCP info
+
 - SuperClaude
   - context7
   - playwright
   - sequential-thinking
   - serena
+  - morphllm-fast-apply
+  - magic
 - Official Ref
-  - https://github.com/modelcontextprotocol/servers/tree/main/src/everything
+  - fetch
+  - mcp-gemini-cli
+  - codex
+
+

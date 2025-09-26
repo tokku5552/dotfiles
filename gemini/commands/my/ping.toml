@@ -1,0 +1,7 @@
+description = "AI Agentとの疎通確認"
+see = "https://example.com"
+shell = '''
+#!/bin/bash
+
+echo "Pong!"
+'''
