@@ -47,7 +47,7 @@ ln -sf ~/dotfiles/asdf/.asdfrc ~
 # .claude ディレクトリが存在しない場合は作成
 mkdir -p ~/.claude
 backup_if_exists "$HOME/.claude/CLAUDE.md"
-ln -sf ~/dotfiles/ai/CLAUDE.md ~/.claude/
+ln -sf ~/dotfiles/claude/CLAUDE.md ~/.claude/
 
 echo ""
 echo "Symbolic links created successfully!"
