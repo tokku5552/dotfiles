@@ -86,3 +86,6 @@ esac
 if [[ -s "$HOME/dotfiles/zsh/.zshrc.local" ]]; then
   source "$HOME/dotfiles/zsh/.zshrc.local"
 fi
+
+# Added by Antigravity
+export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
