@@ -48,4 +48,6 @@ cask "ngrok"
 cask "obsidian"
 cask "sourcetree"
 cask "visual-studio-code"
+# cask "antigravity"
+cask "claude-code"
 
