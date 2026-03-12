@@ -1,15 +1,4 @@
 {
-  "model": "opus",
-  "statusLine": {
-    "type": "command",
-    "command": "npx -y ccstatusline@latest",
-    "padding": 0
-  },
-  "enabledPlugins": {
-    "example-skills@anthropic-agent-skills": false,
-    "skill-creator@claude-plugins-official": true,
-    "feature-dev@claude-plugins-official": true
-  },
   "permissions": {
     "deny": [
       "Bash(git config --global *)",
@@ -24,6 +13,7 @@
       "Bash(git reset --hard *)"
     ]
   },
+  "model": "opus",
   "hooks": {
     "PreToolUse": [
       {
@@ -36,5 +26,16 @@
         ]
       }
     ]
-  }
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y ccstatusline@latest",
+    "padding": 0
+  },
+  "enabledPlugins": {
+    "example-skills@anthropic-agent-skills": false,
+    "skill-creator@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true
+  },
+  "skipDangerousModePermissionPrompt": true
 }
