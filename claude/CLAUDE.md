@@ -35,3 +35,8 @@ The SuperClaude framework components will be automatically imported below.
 @MCP_Morphllm.md
 @MCP_Playwright.md
 @MCP_Serena.md
+  ## Language
+  - Always communicate with me in Japanese (日本語で会話すること)
+  - By default, write code comments, documentation, README, and other file contents in
+  English
+  - Follow project-level CLAUDE.md if it specifies a different language for file contents

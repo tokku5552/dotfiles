@@ -2,5 +2,6 @@
   "enabledMcpjsonServers": [
     "gemini-cli",
     "codex"
-  ]
+  ],
+  "enableAllProjectMcpServers": true
 }
