@@ -16,49 +16,40 @@ if [ -z "$COMMAND" ]; then
   exit 0
 fi
 
-# Extract deny patterns from settings.json
-DENY_PATTERNS=$(jq -r '.permissions.deny[]' "$SETTINGS_FILE" 2>/dev/null | while read -r pattern; do
-  # Only process Bash(...) patterns
-  case "$pattern" in
-    Bash\(*)
-      # Extract the glob inside Bash(...)
-      echo "$pattern" | sed 's/^Bash(\(.*\))$/\1/'
-      ;;
-  esac
-done)
+# Extract deny patterns from settings.json, filtering Bash(...) entries
+# and extracting the inner glob pattern
+DENY_PATTERNS=$(jq -r '.permissions.deny[]' "$SETTINGS_FILE" 2>/dev/null \
+  | grep '^Bash(' \
+  | sed 's/^Bash(//; s/)$//' \
+)
 
 if [ -z "$DENY_PATTERNS" ]; then
   exit 0
 fi
 
-# Split command by ;, &&, || and check each part
+# Check a single command against all deny patterns
 check_command() {
-  local cmd="$1"
-  # Trim leading/trailing whitespace
-  cmd=$(echo "$cmd" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+  _cmd=$(echo "$1" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
 
-  if [ -z "$cmd" ]; then
+  if [ -z "$_cmd" ]; then
     return 0
   fi
 
-  echo "$DENY_PATTERNS" | while read -r pattern; do
-    if [ -z "$pattern" ]; then
-      continue
-    fi
+  echo "$DENY_PATTERNS" | while IFS= read -r pattern; do
+    [ -z "$pattern" ] && continue
 
-    # Convert glob pattern to grep regex
-    # Replace * with .* for matching
+    # Convert glob pattern to regex: escape dots, replace * with .*
     regex=$(echo "$pattern" | sed 's/\./\\./g; s/\*/.*/g')
 
-    if echo "$cmd" | grep -qE "^${regex}$"; then
-      echo "BLOCKED: command '$cmd' matches deny pattern '$pattern'" >&2
+    if echo "$_cmd" | grep -qE "^${regex}$"; then
+      echo "BLOCKED: command '$_cmd' matches deny pattern '$pattern'" >&2
       exit 2
     fi
   done
 }
 
 # Split by ;, &&, || and check each segment
-echo "$COMMAND" | sed 's/&&/\n/g; s/||/\n/g; s/;/\n/g' | while read -r segment; do
+echo "$COMMAND" | tr ';' '\n' | sed 's/&&/\n/g; s/||/\n/g' | while IFS= read -r segment; do
   check_command "$segment"
 done
 
