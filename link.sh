@@ -44,6 +44,11 @@ ln -sf ~/dotfiles/zsh/.zshenv ~
 backup_if_exists "$HOME/.asdfrc"
 ln -sf ~/dotfiles/asdf/.asdfrc ~
 
+# ccstatusline
+mkdir -p "$HOME/.config/ccstatusline"
+backup_if_exists "$HOME/.config/ccstatusline/settings.json"
+ln -sf ~/dotfiles/ccstatusline/settings.json ~/.config/ccstatusline/settings.json
+
 echo ""
 echo "Symbolic links created successfully!"
 echo ""
