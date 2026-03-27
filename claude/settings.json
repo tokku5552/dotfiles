@@ -14,6 +14,7 @@
       "Bash(gh pr merge *)"
     ]
   },
+  "model": "opus[1m]",
   "hooks": {
     "PreToolUse": [
       {
@@ -22,6 +23,10 @@
           {
             "type": "command",
             "command": "sh ~/.claude/scripts/deny-check.sh"
+          },
+          {
+            "type": "command",
+            "command": "python3 ~/.claude/scripts/audit-log.py"
           }
         ]
       }
@@ -35,7 +40,8 @@
   "enabledPlugins": {
     "example-skills@anthropic-agent-skills": false,
     "skill-creator@claude-plugins-official": true,
-    "feature-dev@claude-plugins-official": true
+    "feature-dev@claude-plugins-official": true,
+    "asdd-kit@asdd-kit": true
   },
   "skipDangerousModePermissionPrompt": true
 }
