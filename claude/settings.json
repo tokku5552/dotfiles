@@ -1,4 +1,7 @@
 {
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
   "permissions": {
     "deny": [
       "Bash(git config --global *)",
@@ -41,11 +44,17 @@
     "example-skills@anthropic-agent-skills": false,
     "skill-creator@claude-plugins-official": true,
     "feature-dev@claude-plugins-official": true,
-    "asdd-kit@asdd-kit": true
+    "asdd-kit@asdd-kit": true,
+    "codex@openai-codex": true
+  },
+  "extraKnownMarketplaces": {
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      }
+    }
   },
   "skipDangerousModePermissionPrompt": true,
-  "env": {
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
-  },
   "teammateMode": "tmux"
 }
