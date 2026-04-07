@@ -45,7 +45,8 @@
     "skill-creator@claude-plugins-official": true,
     "feature-dev@claude-plugins-official": true,
     "asdd-kit@asdd-kit": true,
-    "codex@openai-codex": true
+    "codex@openai-codex": true,
+    "linear-kit@my-private-cc-plugins": true
   },
   "extraKnownMarketplaces": {
     "openai-codex": {
@@ -53,6 +54,13 @@
         "source": "github",
         "repo": "openai/codex-plugin-cc"
       }
+    },
+    "my-private-cc-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "tokku5552/cc-plugins"
+      },
+      "autoUpdate": true
     }
   },
   "skipDangerousModePermissionPrompt": true,
