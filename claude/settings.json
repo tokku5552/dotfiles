@@ -14,7 +14,20 @@
       "Bash(git push --force *)",
       "Bash(git push -f *)",
       "Bash(git reset --hard *)",
-      "Bash(gh pr merge *)"
+      "Bash(gh pr merge *)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.config/gcloud/**)",
+      "Read(~/Library/Application Support/**)"
+    ],
+    "ask": [
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(bash -c *)",
+      "Bash(sh -c *)"
     ]
   },
   "model": "opus[1m]",
@@ -41,7 +54,6 @@
     "padding": 0
   },
   "enabledPlugins": {
-    "example-skills@anthropic-agent-skills": false,
     "skill-creator@claude-plugins-official": true,
     "feature-dev@claude-plugins-official": true,
     "asdd-kit@asdd-kit": true,
@@ -63,6 +75,7 @@
       "autoUpdate": true
     }
   },
+  "effortLevel": "medium",
   "skipDangerousModePermissionPrompt": true,
   "teammateMode": "tmux"
 }
