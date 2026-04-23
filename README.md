@@ -85,26 +85,39 @@ New-Item -Type SymbolicLink -Value .\VSCode\settings.json -Path $env:APPDATA\Cod
 mv ~/Library/Application\ Support/Code/User/settings.json ~/Library/Application\ Support/Code/User/settings.json.bk
 ln -s ~/dotfiles/VSCode/settings.json ~/Library/Application\ Support/Code/User/settings.json
 
-# for asdf
-echo -e "\n. $(brew --prefix asdf)/libexec/asdf.sh" >> ${ZDOTDIR:-~}/.zshrc
-asdf plugin-add nodejs
-asdf install nodejs 18.16.1
-asdf global nodejs 18.16.1
+# for mise (zsh activation is loaded by the linked .zshrc)
+mise use -g node@lts
+mise use -g python@3.12
+mise use -g poetry@latest
+mise use -g terraform@latest
+```
 
-# python and poetry
-asdf plugin-add python
-asdf install python 3.8.13
-asdf global python 3.8.13
+## asdf からの移行
 
-asdf plugin-add poetry
-asdf install poetry latest
-asdf global poetry latest
+既存マシンで asdf を使っていた場合の手順:
 
-# terraform
-asdf plugin add terraform
-asdf list all terraform
-asdf install terraform 1.4.6
-asdf global terraform 1.4.6
+```zsh
+# 1. mise をインストール
+make brew
+
+# 2. zshrc 等を再リンク（新 .zshrc と ~/.config/mise/config.toml へのリンクが貼られる）
+make link
+
+# 3. asdf 本体を Homebrew から削除
+#    (`brew cleanup` は古いバージョンの掃除だけなので uninstall は手動)
+brew uninstall asdf
+
+# 4. asdf 側のバージョンデータと残ったドットファイルを削除
+rm -rf ~/.asdf
+rm -f ~/.asdfrc
+
+# 5. 新しいシェルを起動して mise を有効化
+exec zsh
+mise --version
+
+# 6. 既存の .tool-versions は mise がそのまま解釈する
+#    ただし未インストールのバージョンは事前に mise install すること
+mise install
 ```
 
 - java configure

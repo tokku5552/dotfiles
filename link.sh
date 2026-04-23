@@ -41,8 +41,10 @@ ln -sf ~/dotfiles/zsh/.zprofile ~
 backup_if_exists "$HOME/.zshenv"
 ln -sf ~/dotfiles/zsh/.zshenv ~
 
-backup_if_exists "$HOME/.asdfrc"
-ln -sf ~/dotfiles/asdf/.asdfrc ~
+# mise
+mkdir -p "$HOME/.config/mise"
+backup_if_exists "$HOME/.config/mise/config.toml"
+ln -sf ~/dotfiles/mise/config.toml ~/.config/mise/config.toml
 
 # ccstatusline
 mkdir -p "$HOME/.config/ccstatusline"

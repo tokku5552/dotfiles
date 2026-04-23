@@ -45,15 +45,6 @@ alias la='ls -la'
 alias mktoday='mkdir -p $(date +%Y%m%d)'
 alias claudey='claude --dangerously-skip-permissions'
 
-# asdf setting
-if [[ -f /opt/homebrew/opt/asdf/libexec/asdf.sh ]]; then
-  . /opt/homebrew/opt/asdf/libexec/asdf.sh
-  export PATH="/opt/homebrew/opt/asdf/bin:$PATH"
-elif [[ -f /usr/local/opt/asdf/libexec/asdf.sh ]]; then
-  . /usr/local/opt/asdf/libexec/asdf.sh
-  export PATH="/usr/local/opt/asdf/bin:$PATH"
-fi
-
 # for npm global tools
 export PATH="$(npm config get prefix)/bin:$PATH"
 
@@ -98,3 +89,8 @@ fi
 # Added by Antigravity
 export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+
+# mise (version manager) - must run after all other PATH modifications
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+fi
