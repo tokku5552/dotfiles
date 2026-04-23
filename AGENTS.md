@@ -4,7 +4,7 @@
 - Root: setup scripts and configs — `.Brewfile`, `Makefile`, `brew.sh`, `link.sh`, `README.md`.
 - `zsh/`: shell configuration (`.zshrc`, `.zshenv`, prezto config) plus `*.local.example` templates for private overrides.
 - `VSCode/`: `settings.json`, `extensions` list, and install scripts (`install_extension.sh`, `install_extension.ps1`).
-- `asdf/`: version manager config (e.g., `.asdfrc`).
+- `mise/`: version manager config (`config.toml`).
 
 ## Build, Test, and Development Commands
 - `make link`: creates symlinks from this repo into `$HOME` (see `link.sh`).

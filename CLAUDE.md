@@ -14,9 +14,10 @@ after the links exist.
 
 Top-level `Makefile` only wraps the two most-used scripts:
 
-- `make link` — runs `link.sh`. Symlinks zsh configs, `asdf/.asdfrc`, and
-  `ccstatusline/settings.json` into their expected paths. Before overwriting, it
-  backs up each existing target into `~/.dotfiles_backup_<timestamp>/`.
+- `make link` — runs `link.sh`. Symlinks zsh configs, `mise/config.toml` (to
+  `~/.config/mise/config.toml`), and `ccstatusline/settings.json` into their
+  expected paths. Before overwriting, it backs up each existing target into
+  `~/.dotfiles_backup_<timestamp>/`.
 - `make brew` — runs `brew.sh` (`brew doctor` → `update` → `upgrade` →
   `bundle --file .Brewfile` → `cleanup`). The `.Brewfile` is the source of
   truth for formulae/casks/taps; dump with `brew bundle dump --global`.
@@ -42,7 +43,9 @@ link.sh` when touching them — there is no test suite.
 
 - `zsh/` — shell config (`.zshrc`, `.zshenv`, `.zprofile`, `.zpreztorc`, etc.).
   Uses **prezto** as the framework (sourced from `~/.zprezto/init.zsh`).
-- `asdf/.asdfrc`, `.Brewfile`, `brew.sh` — package/runtime management.
+- `mise/config.toml`, `.Brewfile`, `brew.sh` — package/runtime management
+  (mise handles language version management; `legacy_version_file` is enabled
+  via `idiomatic_version_file_enable_tools` for `node` and `python`).
 - `claude/` — Claude Code config: `settings.json` (hooks, permissions, enabled
   plugins, marketplaces), `CLAUDE.md` (global user instructions, not repo
   instructions), and `scripts/` containing hook implementations.
