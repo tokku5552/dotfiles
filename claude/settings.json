@@ -11,6 +11,8 @@
       "Bash(chmod 777 *)",
       "Bash(rm -rf /*)",
       "Bash(rm -rf ~/*)",
+      "Bash(rm -f /*)",
+      "Bash(rm -f ~/*)",
       "Bash(gh repo delete *)",
       "Bash(git push --force *)",
       "Bash(git push -f *)",
@@ -29,7 +31,8 @@
       "Bash(wget *)",
       "Bash(bash -c *)",
       "Bash(sh -c *)"
-    ]
+    ],
+    "defaultMode": "auto"
   },
   "model": "opus[1m]",
   "hooks": {
@@ -57,8 +60,8 @@
   "enabledPlugins": {
     "skill-creator@claude-plugins-official": true,
     "feature-dev@claude-plugins-official": true,
-    "asdd-kit@asdd-kit": true,
     "codex@openai-codex": true,
+    "article-kit@my-private-cc-plugins": true,
     "linear-kit@my-private-cc-plugins": true
   },
   "extraKnownMarketplaces": {
@@ -78,5 +81,6 @@
   },
   "effortLevel": "high",
   "skipDangerousModePermissionPrompt": true,
-  "teammateMode": "tmux"
+  "teammateMode": "tmux",
+  "skipAutoPermissionPrompt": true
 }
