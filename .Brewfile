@@ -7,7 +7,6 @@ tap "leoafarias/fvm"
 tap "sanemat/font"
 
 #Formulae
-brew "asdf"
 brew "awscli"
 brew "azure-cli"
 brew "bazelisk"
@@ -20,6 +19,7 @@ brew "grpcurl"
 brew "jq"
 brew "kubectx"
 brew "minikube"
+brew "mise"
 brew "mysql-client"
 brew "mysql-client@8.4", link: true
 brew "openjdk@17"

@@ -1,0 +1,6 @@
+[tools]
+node = "22.22.0"
+terraform = "1.9.5"
+
+[settings]
+idiomatic_version_file_enable_tools = ["node", "python"]
