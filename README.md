@@ -168,6 +168,78 @@ vim zsh/.zshenv.local
 
 **注意**: `.zshrc.local` と `.zshenv.local` ファイルは `.gitignore` に含まれているため、GitHub にコミットされません。
 
+## Claude Code の設定（PC ごとの差分）
+
+Claude Code は `~/.claude/settings.json` を**読むだけでなく自分で書き戻す**（`theme`、
+`effortLevel`、`advisorModel`、`enabledPlugins`、`extraKnownMarketplaces` など）。
+そのため、このファイルを直接 symlink で共有すると UI 操作のたびに追跡ファイルが書き換わり、
+PC 間で PR が競合する。そこで 3 つのファイルに分けている。
+
+| ファイル | 追跡 | 役割 |
+| --- | --- | --- |
+| `claude/settings.json` | される | 全 PC 共通のベース |
+| `claude/settings.local.json` | **されない** | この PC 固有のオーバーレイ |
+| `~/.claude/settings.json` | — | 上 2 つから**生成**され、Claude Code が読み書きする |
+
+### セットアップ
+
+```bash
+# この PC 固有の設定を持つ場合のみ（無くても動く）
+cp claude/settings.local.json.example claude/settings.local.json
+
+bash claude/install.sh
+```
+
+`install.sh` は `CLAUDE.md` と `scripts/` を `~/.claude/` へ symlink し、
+`claude/sync.sh --merge` を呼んで `~/.claude/settings.json` を生成する。
+**`~/.claude/settings.json` は生成物なので手で編集しない**（マージのたびに上書きされる）。
+共通の設定を変えたいときは `claude/settings.json` を編集して `install.sh` を再実行する。
+
+### オーバーレイの意味論
+
+`claude/settings.local.json` はトップレベルのキー単位でベースに重なる。
+
+- ここにあるキーはベースのキーを**丸ごと**置き換える（エントリ単位のマージではない）
+- 値を `null` にするとそのキーを削除する
+- ここに無いキーはベースの値がそのまま使われる
+
+`permissions` と `hooks` はオーバーレイに入れないこと。全 PC 共通のガードレールであり、
+`deny-check.sh` は deny リストが読めないとき**ブロック側に倒れる**（fail closed）。
+
+> `claude/settings.local.json` は、リポジトリルートにある**追跡済みの**
+> `.claude/settings.local.json`（Claude Code のプロジェクトスコープ設定）とは別物。
+
+### PR を出す前
+
+Claude Code が書き戻した差分（ドリフト）を、共通側とこの PC 側に振り分ける。
+
+```bash
+bash claude/sync.sh            # 差分を表示するだけ。差分があれば exit 3
+bash claude/sync.sh --apply    # 共通は settings.json、PC 固有は settings.local.json へ
+git diff claude/settings.json  # 共通側に入った内容を必ず確認する
+```
+
+振り分け先は `claude/sync.sh` の `LOCAL_KEYS` で決まる。想定外のキーが `base` に
+向かっていたら、そのキーを `LOCAL_KEYS` に 1 行足す。
+
+### 他の PC の変更を取り込む
+
+```bash
+git pull
+bash claude/install.sh
+```
+
+自分の PC のドリフトと、他の PC が入れた変更の両方が保持される（前回生成した内容を
+`~/.claude/.settings.snapshot.json` に記録しているため 3-way マージができる）。
+同じキーを両方が別々に変えていた場合は競合として報告され、**何も書かずに中断する**。
+手で直すか、この PC の値を採用してよければ `--prefer-local` を付ける。
+
+**install / sync は Claude Code を閉じた状態で実行すること。** 起動中の Claude Code は
+古い読み取り結果でファイル全体を上書きするため、マージ結果が巻き戻ることがある。
+
+`git clean -xdf` は `claude/settings.local.json` を消す（復旧不能）。
+`zsh/.zshrc.local` と同じ扱いなので、除外するか実行しないこと。
+
 # AI Agent
 
 ## Documents
