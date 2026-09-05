@@ -52,4 +52,5 @@ cask "notion"
 cask "ghostty"
 # cask "antigravity"
 cask "claude-code"
-
+cask "meetily"
+cask "anomalyco/tap/hex"
