@@ -72,6 +72,9 @@ link.sh` when touching them — there is no test suite.
 - `.mcp.json` — project-scoped MCP server declarations (gemini-cli, codex).
 - `AGENTS.md` — contributor guide (commits, style, testing). Read it before
   proposing changes to conventions.
+- `docs/claude-settings-runbook.md` — migration, day-to-day and troubleshooting
+  procedures for the settings split, plus the reasoning behind its design. Read
+  it before changing `claude/sync.sh` or advising on a migration.
 
 ## Local (gitignored) overrides
 

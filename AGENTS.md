@@ -2,6 +2,7 @@
 
 ## Project Structure & Module Organization
 - Root: setup scripts and configs — `.Brewfile`, `Makefile`, `brew.sh`, `link.sh`, `README.md`.
+- `docs/`: operational runbooks. `claude-settings-runbook.md` covers migrating and running the Claude Code settings split.
 - `zsh/`: shell configuration (`.zshrc`, `.zshenv`, prezto config) plus `*.local.example` templates for private overrides.
 - `VSCode/`: `settings.json`, `extensions` list, and install scripts (`install_extension.sh`, `install_extension.ps1`).
 - `mise/`: version manager config (`config.toml`).

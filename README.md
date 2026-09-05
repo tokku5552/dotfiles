@@ -181,6 +181,11 @@ PC 間で PR が競合する。そこで 3 つのファイルに分けている�
 | `claude/settings.local.json` | **されない** | この PC 固有のオーバーレイ |
 | `~/.claude/settings.json` | — | 上 2 つから**生成**され、Claude Code が読み書きする |
 
+**移行・運用・トラブルシュートの具体的な手順は
+[docs/claude-settings-runbook.md](docs/claude-settings-runbook.md) にある。**
+既に symlink 方式で使っている PC を移行するときは、順序を間違えると設定を失うので
+必ずそちらを読むこと。
+
 ### セットアップ
 
 ```bash
