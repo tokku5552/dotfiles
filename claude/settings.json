@@ -101,8 +101,6 @@
       "autoUpdate": true
     }
   },
-  "effortLevel": "xhigh",
-  "skipDangerousModePermissionPrompt": true,
-  "teammateMode": "tmux",
+  "effortLevel": "high",
   "skipAutoPermissionPrompt": true
 }
