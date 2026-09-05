@@ -75,8 +75,6 @@
     "feature-dev@claude-plugins-official": true,
     "codex@openai-codex": true,
     "linear-kit@my-private-cc-plugins": true,
-    "laplace@coding-agent-plugins": true,
-    "asdd-kit@coding-agent-plugins": true,
     "article-kit@my-private-cc-plugins": true
   },
   "extraKnownMarketplaces": {
@@ -90,13 +88,6 @@
       "source": {
         "source": "github",
         "repo": "tokku5552/cc-plugins"
-      },
-      "autoUpdate": true
-    },
-    "coding-agent-plugins": {
-      "source": {
-        "source": "github",
-        "repo": "kouzoh/coding-agent-plugins"
       },
       "autoUpdate": true
     }
