@@ -49,8 +49,6 @@ SNAPSHOT="$CLAUDE_DIR/.settings.snapshot.json"
 # unexpected key heading for "base".
 LOCAL_KEYS=(
   theme
-  effortLevel
-  advisorModel
   agentPushNotifEnabled
   enabledPlugins
   extraKnownMarketplaces

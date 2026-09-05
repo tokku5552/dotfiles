@@ -93,5 +93,6 @@
     }
   },
   "effortLevel": "high",
-  "skipAutoPermissionPrompt": true
+  "skipAutoPermissionPrompt": true,
+  "advisorModel": "fable"
 }
