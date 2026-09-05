@@ -24,9 +24,17 @@ Top-level `Makefile` only wraps the two most-used scripts:
 
 Per-tool installers are **not** in the Makefile and must be invoked directly:
 
-- `bash claude/install.sh` — links `claude/CLAUDE.md`, `claude/settings.json`,
-  and `claude/scripts/` into `~/.claude/`. Backs up any pre-existing real file
-  (non-symlink) to `*.bak` before replacing.
+- `bash claude/install.sh` — links `claude/CLAUDE.md` and `claude/scripts/` into
+  `~/.claude/`, then calls `claude/sync.sh --merge` to **generate**
+  `~/.claude/settings.json` from `claude/settings.json` plus this machine's
+  `claude/settings.local.json`. That file is not a symlink (see below). On the
+  first run only — while no snapshot exists — it copies the live settings to
+  `settings.json.bak`. Exits non-zero and writes nothing on a merge conflict.
+- `bash claude/sync.sh` — reconciles Claude Code's own write-backs with the
+  tracked base. No args reports drift (exit 3 if any); `--merge` regenerates the
+  live settings; `--apply` first persists this machine's drift into the base or
+  the overlay. Run it before opening a PR. `--prefer-local` resolves conflicts,
+  `-n` is a dry run.
 - `bash codex/install.sh` — registers MCP servers via `codex mcp add` and links
   `codex/AGENTS.md` into `~/.codex/`.
 - `bash gemini/install.sh` — `npm install -g @google/gemini-cli`, then links
@@ -46,15 +54,27 @@ link.sh` when touching them — there is no test suite.
 - `mise/config.toml`, `.Brewfile`, `brew.sh` — package/runtime management
   (mise handles language version management; `legacy_version_file` is enabled
   via `idiomatic_version_file_enable_tools` for `node` and `python`).
-- `claude/` — Claude Code config: `settings.json` (hooks, permissions, enabled
-  plugins, marketplaces), `CLAUDE.md` (global user instructions, not repo
-  instructions), and `scripts/` containing hook implementations.
+- `claude/` — Claude Code config:
+  - `settings.json` — the shared base (hooks, permissions, plugins,
+    marketplaces). Tracked.
+  - `settings.local.json` — this machine's overlay. **Gitignored**; seed it from
+    `settings.local.json.example` (tracked).
+  - `sync.sh` — merges base + overlay, detects drift, persists it. The only
+    place that computes settings.
+  - `install.sh` — links `CLAUDE.md`/`scripts/` and calls `sync.sh --merge`.
+  - `CLAUDE.md` — global user instructions, not repo instructions.
+  - `scripts/` — hook implementations.
+  - `~/.claude/settings.json` and `~/.claude/.settings.snapshot.json` are
+    generated; neither lives in this repo.
 - `codex/`, `gemini/`, `ccstatusline/` — config + install scripts for other AI
   CLIs / the Claude Code status line.
 - `VSCode/` — `settings.json`, the `extensions` list, and install scripts.
 - `.mcp.json` — project-scoped MCP server declarations (gemini-cli, codex).
 - `AGENTS.md` — contributor guide (commits, style, testing). Read it before
   proposing changes to conventions.
+- `docs/claude-settings-runbook.md` — migration, day-to-day and troubleshooting
+  procedures for the settings split, plus the reasoning behind its design. Read
+  it before changing `claude/sync.sh` or advising on a migration.
 
 ## Local (gitignored) overrides
 
@@ -63,11 +83,27 @@ excluded via `.gitignore`. They are the correct place for machine-specific
 aliases, PATH additions, and secrets (API keys, tokens). Copy from the matching
 `*.example` to seed them. **Never** move secrets into tracked files.
 
+`claude/settings.local.json` is the same idea for Claude Code, but it is applied
+by merging rather than sourcing — see the next section. The routing rule that
+keeps it useful: **any key Claude Code writes back on its own belongs in the
+overlay**, listed in `LOCAL_KEYS` in `claude/sync.sh`. An unlisted key that the
+tool rewrites gets persisted into the tracked base and starts conflicting across
+machines, which is the failure this whole arrangement exists to prevent.
+
+Do not confuse it with the repository's own `.claude/settings.local.json`, which
+is Claude Code's project-scoped settings file and *is* tracked.
+
 ## Claude Code settings (`claude/settings.json`)
 
-Anything edited here affects every Claude Code session on this machine once
-`claude/install.sh` has run, because the file is symlinked to
-`~/.claude/settings.json`. Notable pieces:
+This is the **shared base**, not the file Claude Code reads. Edits here reach
+this machine only after `claude/install.sh` (or `claude/sync.sh --merge`)
+regenerates `~/.claude/settings.json` from base + `settings.local.json`.
+
+**Never hand-edit `~/.claude/settings.json`** — it is generated and is rewritten
+on every merge. Claude Code itself writes to it constantly (that is the point of
+`sync.sh`), so put deliberate changes in the base or the overlay instead.
+
+Notable pieces:
 
 - `permissions.deny` — hard-blocks destructive Bash patterns (`rm -rf /*`,
   `git push --force *`, `gh pr merge *`, etc.) and sensitive reads (`.env`,
@@ -78,11 +114,15 @@ Anything edited here affects every Claude Code session on this machine once
   `claude/scripts/` on every Bash tool call:
   - `deny-check.sh` reads the `permissions.deny` list, splits the command on
     `;`, `&&`, `||`, and **blocks (exit 2)** any segment matching a
-    `Bash(<glob>)` pattern.
+    `Bash(<glob>)` pattern. It reads `~/.claude/settings.json`, i.e. the
+    generated file — so `sync.sh` refuses to install a result that has an empty
+    `permissions.deny` or that no longer runs this hook.
   - `audit-log.py` appends every command to `~/.claude/audit.log` with a UTC
     timestamp. Purely observational (always exits 0).
 - `enabledPlugins` + `extraKnownMarketplaces` wire in plugins from
-  `openai/codex-plugin-cc` and `tokku5552/cc-plugins`.
+  `openai/codex-plugin-cc` and `tokku5552/cc-plugins`. These are the keys most
+  likely to differ per machine, so they are in `LOCAL_KEYS` and drift on them
+  lands in the overlay.
 
 When adding a new deny pattern, the glob form `Bash(<pattern>)` is what
 `deny-check.sh` parses — keep that shape. When adding a new hook script, place
