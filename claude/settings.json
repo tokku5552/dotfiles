@@ -75,14 +75,17 @@
     "feature-dev@claude-plugins-official": true,
     "codex@openai-codex": true,
     "linear-kit@my-private-cc-plugins": true,
-    "article-kit@my-private-cc-plugins": true
+    "article-kit@my-private-cc-plugins": true,
+    "docs-kit@my-private-cc-plugins": true,
+    "quality-kit@my-private-cc-plugins": true
   },
   "extraKnownMarketplaces": {
     "openai-codex": {
       "source": {
         "source": "github",
         "repo": "openai/codex-plugin-cc"
-      }
+      },
+      "autoUpdate": true
     },
     "my-private-cc-plugins": {
       "source": {
