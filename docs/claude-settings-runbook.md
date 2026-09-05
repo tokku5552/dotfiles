@@ -6,6 +6,10 @@
 仕組みの概要は [README.md](../README.md#claude-code-の設定pc-ごとの差分) を参照。
 この文書は**実際に手を動かすときの手順書**。
 
+**出力を他所へ持ち出せない前提で書いてある。** 確認用のコマンドは貼ればそのまま
+`OK` / `NG` / `?` を出す。`OK` なら次へ、`NG` なら指定された節へ、`?` は目で見て判断する。
+判断が要るのは「共有ベースに何を入れるか」だけ。
+
 | ファイル | 追跡 | 役割 |
 | --- | --- | --- |
 | `claude/settings.json` | される | 全 PC 共通のベース |
@@ -100,40 +104,34 @@ bash ~/dotfiles/claude/sync.sh --apply
 
 ### 1-7. 確認
 
-**ここが判断ポイント。** 共通ベースに何が入ろうとしているかを必ず目で見る。
+このブロックをそのまま貼れば、**各項目が自分で OK / NG を出す**。全部 OK なら移行完了。
 
 ```bash
-cd ~/dotfiles && git diff claude/settings.json
+cd ~/dotfiles
+L=~/.claude/settings.json; B=/tmp/live-backup.json
+[ -L "$L" ] && echo "NG  live がまだ symlink" || echo "OK  live は実ファイル"
+[ -e ~/.claude/.settings.snapshot.json ] && echo "OK  スナップショットあり" || echo "NG  スナップショットがない"
+git diff --quiet claude/settings.json && echo "OK  共有ベースはクリーン" \
+  || { echo "?   共有ベースに差分あり。中身を確認:"; git diff claude/settings.json | grep '^[+-] *"' | head -20; }
+for k in theme effortLevel advisorModel agentPushNotifEnabled enabledPlugins extraKnownMarketplaces; do
+  git diff claude/settings.json | grep -q "^[+-] *\"$k\"" && echo "NG  $k が共有ベースに入っている（3-4 へ）"
+done
+jq -e '.permissions.deny|length>0' "$L" >/dev/null && echo "OK  permissions.deny あり" || echo "NG  deny が空"
+jq -e '[.hooks.PreToolUse[]?.hooks[]?.command // empty]|any(test("deny-check"))' "$L" >/dev/null \
+  && echo "OK  deny-check hook あり" || echo "NG  deny-check hook がない"
+[ -f "$B" ] && { /usr/bin/diff -q <(jq -S . "$B") <(jq -S . "$L") >/dev/null \
+  && echo "OK  移行前から欠落なし" || echo "?   バックアップと差分あり: /usr/bin/diff <(jq -S . $B) <(jq -S . $L)"; }
+bash ~/dotfiles/claude/sync.sh >/dev/null 2>&1 && echo "OK  in sync" || echo "?   未同期（2-1 へ）"
 ```
 
-残ってよいのは「全 PC で共有したい変更」だけ。`theme` / `effortLevel` / `advisorModel` /
-`agentPushNotifEnabled` / `enabledPlugins` / `extraKnownMarketplaces` がここに出ていたら
-振り分けが誤っている。`claude/sync.sh` の `LOCAL_KEYS` にそのキーを 1 行足し、
-`git checkout claude/settings.json` してから 1-6 をやり直す。
+`?` は「見て判断するもの」。共有ベースの差分は、全 PC で共有したい変更（`hooks` や
+`permissions` など）なら残してよい。上のループで `NG` が出たキーは PC 固有なので
+3-4 で戻す。
+
+オーバーレイの中身も見ておく。
 
 ```bash
-cd ~/dotfiles && jq . claude/settings.local.json
-```
-
-オーバーレイにその PC 固有のキーが入っていること。
-
-```bash
-bash ~/dotfiles/claude/sync.sh
-```
-
-`in sync.` / exit 0 になること。内容が落ちていないこと
-（`diff` はシェルの alias/function に潰されることがあるのでフルパスで叩く）:
-
-```bash
-/usr/bin/diff <(jq -S . /tmp/live-backup.json) <(jq -S . ~/.claude/settings.json) && echo "no loss"
-```
-
-ガードレールが生きていること:
-
-```bash
-jq -e '.permissions.deny|length>0' ~/.claude/settings.json \
-  && jq -e '[.hooks.PreToolUse[].hooks[].command]|any(test("deny-check"))' ~/.claude/settings.json \
-  && echo "guardrails ok"
+jq . ~/dotfiles/claude/settings.local.json
 ```
 
 最後に**実セッションでの確認**。ここだけは自動テストで代替できない
@@ -223,13 +221,47 @@ rm ~/.claude/settings.json && ln -sf ~/dotfiles/claude/settings.json ~/.claude/s
 
 `~/.claude/.settings.snapshot.json` は残しても害はないが、消せば次回は初回移行扱いに戻る。
 
-### 3-4. `~/.claude/settings.json` を手で編集してしまった
+### 3-4. 共有ベースに PC 固有のキーが入ってしまった
+
+`git diff claude/settings.json` に `theme` / `effortLevel` / `advisorModel` /
+`agentPushNotifEnabled` / `enabledPlugins` / `extraKnownMarketplaces` が出ている状態。
+そのキーが `claude/sync.sh` の `LOCAL_KEYS` に無いか、`sync.sh` が古い。
+
+まだ push していなければ、共有ベースを捨てて振り分けし直すだけでよい。ライブ設定は
+触らないので失われない。
+
+```bash
+cd ~/dotfiles && git switch main && git pull
+```
+
+```bash
+cd ~/dotfiles && git checkout claude/settings.json && bash ~/dotfiles/claude/sync.sh --apply
+```
+
+```bash
+cd ~/dotfiles
+git diff --quiet claude/settings.json && echo "OK  共有ベースはクリーン" || {
+  for k in theme effortLevel advisorModel agentPushNotifEnabled enabledPlugins extraKnownMarketplaces; do
+    git diff claude/settings.json | grep -q "^[+-] *\"$k\"" && echo "NG  $k がまだ残っている"
+  done
+  echo "?   残りの差分（共有したいものなら OK）:"; git diff claude/settings.json | grep '^[+-] *"'
+}
+```
+
+まだ `NG` が出るキーは `LOCAL_KEYS` に足りない。`claude/sync.sh` の `LOCAL_KEYS` に
+1 行足してから、このブロックをもう一度実行する。
+
+既に push してしまった場合は、共有ベースからそのキーを消す PR を出す。他の PC は
+次の `install.sh` でそれを upstream の削除として取り込む（自分の値がオーバーレイに
+あればそちらが勝つので、その PC の設定は変わらない）。
+
+### 3-5. `~/.claude/settings.json` を手で編集してしまった
 
 編集内容はドリフトとして扱われるので失われない。`sync.sh --apply` で拾って正しい側へ
 振り分ける。ただし**恒久的な変更はベースかオーバーレイに書くのが正しい**。生成物は
 マージのたびに上書きされる。
 
-### 3-5. `git clean -xdf` をやってしまった
+### 3-6. `git clean -xdf` をやってしまった
 
 `claude/settings.local.json` は**復旧不能**（`zsh/.zshrc.local` と同じ扱い）。
 `~/.claude/` 配下の生成物とスナップショットは無事なので、`sync.sh --apply` で
