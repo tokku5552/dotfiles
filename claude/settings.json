@@ -4,6 +4,9 @@
     "CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING": "1"
   },
   "permissions": {
+    "allow": [
+      "mcp__ccd_session_mgmt__set_session_title"
+    ],
     "deny": [
       "Bash(git config --global *)",
       "Bash(brew install *)",
@@ -50,6 +53,16 @@
           }
         ]
       }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh ~/.claude/scripts/session-title-nudge.sh"
+          }
+        ]
+      }
     ]
   },
   "statusLine": {
@@ -58,13 +71,17 @@
     "padding": 0
   },
   "enabledPlugins": {
-    "skill-creator@claude-plugins-official": true,
-    "feature-dev@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": false,
+    "feature-dev@claude-plugins-official": false,
     "codex@openai-codex": true,
-    "linear-kit@my-private-cc-plugins": true,
+    "linear-kit@my-private-cc-plugins": false,
     "laplace@coding-agent-plugins": true,
     "asdd-kit@coding-agent-plugins": true,
-    "article-kit@my-private-cc-plugins": true
+    "article-kit@my-private-cc-plugins": false,
+    "security-guidance@claude-plugins-official": true,
+    "ads-jira@ads-ai-workspace": true,
+    "proto-box@mercari-mvno-scripts": true,
+    "ads-ecpm@ads-ai-workspace": true
   },
   "extraKnownMarketplaces": {
     "openai-codex": {
@@ -86,10 +103,24 @@
         "repo": "kouzoh/coding-agent-plugins"
       },
       "autoUpdate": true
+    },
+    "ads-ai-workspace": {
+      "source": {
+        "source": "github",
+        "repo": "kouzoh/ads-ai-workspace"
+      }
+    },
+    "mercari-mvno-scripts": {
+      "source": {
+        "source": "github",
+        "repo": "kouzoh/mercari-mvno-scripts"
+      }
     }
   },
-  "effortLevel": "xhigh",
+  "effortLevel": "high",
+  "advisorModel": "fable",
   "skipDangerousModePermissionPrompt": true,
+  "theme": "dark",
   "teammateMode": "tmux",
   "skipAutoPermissionPrompt": true
 }

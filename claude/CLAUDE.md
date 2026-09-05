@@ -1,5 +1,3 @@
-指示があるとき以外は基本的に日本語で返答してください。
-
 ## Language
 - Always communicate with me in Japanese (日本語で会話すること)
 - By default, write code comments, documentation, README, and other file contents in English
@@ -21,3 +19,9 @@
 - ファイルを編集する前に、必ず Read で対象ファイルを読むこと
 - 関連ファイル（テスト、型定義、呼び出し元）も確認してから編集する
 - Write（全ファイル書き換え）ではなく Edit（差分編集）を優先する
+
+## 人に見せる文章
+Slack の投稿・返信、Notion / Confluence の文書、提案・ロードマップなど他人が読む文章を書く・直すときは、
+提示する前に `prose-quality` skill を読み、そのチェックリストを黙って通すこと。
+呼び出し中のスキルやプロジェクトのテンプレートが出力形式を決めている場合はそちらを優先し、
+このスキルは形式の指定がないときの既定として使う。自分しか読まない作業メモは対象外。
