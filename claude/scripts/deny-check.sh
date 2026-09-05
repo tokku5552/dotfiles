@@ -4,7 +4,7 @@
 
 set -eu
 
-SETTINGS_FILE="$HOME/.claude/settings.json"
+SETTINGS_FILE="${CLAUDE_SETTINGS_FILE:-$HOME/.claude/settings.json}"
 
 # Read JSON from stdin
 INPUT=$(cat)
@@ -16,13 +16,23 @@ if [ -z "$COMMAND" ]; then
   exit 0
 fi
 
+# Fail closed. An unreadable or malformed settings file must not silently
+# disable the deny list: Claude Code drops every setting from a malformed file,
+# so "no patterns found" would otherwise turn this guardrail off with no signal.
+# Only a deny array that is explicitly present is allowed to yield no patterns.
+if ! jq -e '(.permissions.deny | type) == "array"' "$SETTINGS_FILE" >/dev/null 2>&1; then
+  echo "BLOCKED: cannot read permissions.deny from $SETTINGS_FILE (failing closed)" >&2
+  exit 2
+fi
+
 # Extract deny patterns from settings.json, filtering Bash(...) entries
 # and extracting the inner glob pattern
-DENY_PATTERNS=$(jq -r '.permissions.deny[]' "$SETTINGS_FILE" 2>/dev/null \
+DENY_PATTERNS=$(jq -r '.permissions.deny[]' "$SETTINGS_FILE" \
   | grep '^Bash(' \
   | sed 's/^Bash(//; s/)$//' \
-)
+  || true)
 
+# Deny array present but carrying no Bash(...) rules: nothing to enforce here.
 if [ -z "$DENY_PATTERNS" ]; then
   exit 0
 fi
