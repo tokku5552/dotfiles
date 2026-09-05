@@ -37,23 +37,31 @@ cp -L ~/.claude/settings.json /tmp/live-backup.json && jq -e 'type=="object"' /t
 
 `-L` は symlink の**中身**をコピーするため。この時点ではまだ symlink なので必須。
 
-### 1-2. ベースを取り込む
+### 1-2. 作業ツリーを片付ける
+
+まずブランチと未コミット差分を見る。作業用ブランチに乗ったままの PC がある。
 
 ```bash
-cd ~/dotfiles && git pull
+cd ~/dotfiles && git branch --show-current && git status --short
 ```
 
-### 1-3. ベースから書き戻しを落とす
-
-`claude/settings.json` に未コミットの差分があれば、それは Claude Code が書き戻したもの。
-共通設定として意図的に入れたものでなければ捨てる（1-1 で退避済み）。
-
-```bash
-cd ~/dotfiles && git status --short claude/
-```
+`claude/settings.json` の差分は Claude Code が symlink 経由で書き戻したもの。
+共通設定として意図的に入れたものでなければ捨てる（1-1 で退避済み、1-6 で overlay に入る）。
 
 ```bash
 cd ~/dotfiles && git checkout claude/settings.json
+```
+
+**捨てるのは pull より先。** 順序を逆にすると、ベース側が同じファイルを触っていたときに
+pull が中断する。他のファイル（`ccstatusline/settings.json` など）にも同種の書き戻しが
+乗っていることがある。中身を見て、要らなければ同様に捨てる。
+
+### 1-3. ベースを取り込む
+
+main にいなければ戻ってから pull する。
+
+```bash
+cd ~/dotfiles && git switch main && git pull
 ```
 
 ### 1-4. symlink を切って実ファイルにする
@@ -69,11 +77,16 @@ bash ~/dotfiles/claude/install.sh
 ```
 
 初回は共通祖先が `{}` なので、ベースとライブで**値が違う**キーは競合として報告され、
-**何も書かれずに exit 3** で止まる。その PC の値を採用してよければ:
+**何も書かれずに exit 3** で止まる。2 台目以降ではほぼ必ず起きる（`effortLevel` や
+`enabledPlugins` は PC ごとに違うため）。報告内容を見て、その PC の値を採用してよければ:
 
 ```bash
 bash ~/dotfiles/claude/install.sh --prefer-local
 ```
+
+> `--prefer-local` で解決したキーは**その場では永続化されない**（ライブには反映されるが
+> base にも overlay にも書かれない）。次の 1-6 で通常のドリフトとして拾われるので、
+> 1-6 まで進めれば恒久化される。
 
 ### 1-6. ドリフトを振り分ける
 
@@ -87,20 +100,32 @@ bash ~/dotfiles/claude/sync.sh --apply
 
 ### 1-7. 確認
 
+**ここが判断ポイント。** 共通ベースに何が入ろうとしているかを必ず目で見る。
+
 ```bash
-cd ~/dotfiles && git status --short claude/ && jq . claude/settings.local.json
+cd ~/dotfiles && git diff claude/settings.json
 ```
 
-`claude/` に差分がなく、オーバーレイにその PC 固有のキーが入っていれば成功。
+残ってよいのは「全 PC で共有したい変更」だけ。`theme` / `effortLevel` / `advisorModel` /
+`agentPushNotifEnabled` / `enabledPlugins` / `extraKnownMarketplaces` がここに出ていたら
+振り分けが誤っている。`claude/sync.sh` の `LOCAL_KEYS` にそのキーを 1 行足し、
+`git checkout claude/settings.json` してから 1-6 をやり直す。
+
+```bash
+cd ~/dotfiles && jq . claude/settings.local.json
+```
+
+オーバーレイにその PC 固有のキーが入っていること。
 
 ```bash
 bash ~/dotfiles/claude/sync.sh
 ```
 
-`in sync.` / exit 0 になること。内容が落ちていないこと:
+`in sync.` / exit 0 になること。内容が落ちていないこと
+（`diff` はシェルの alias/function に潰されることがあるのでフルパスで叩く）:
 
 ```bash
-diff <(jq -S . /tmp/live-backup.json) <(jq -S . ~/.claude/settings.json) && echo "no loss"
+/usr/bin/diff <(jq -S . /tmp/live-backup.json) <(jq -S . ~/.claude/settings.json) && echo "no loss"
 ```
 
 ガードレールが生きていること:
@@ -117,6 +142,9 @@ jq -e '.permissions.deny|length>0' ~/.claude/settings.json \
 - `claude` を起動して Bash を 1 回実行 → `tail -2 ~/.claude/audit.log` に出るか
 - `/config` で theme を変えて終了 → `bash ~/dotfiles/claude/sync.sh` が
   `theme -> overlay` と報告するか
+
+**ここまで通るまで `/tmp/live-backup.json` は消さないこと。** 移行前の設定はこれが
+唯一のコピー。うまくいかなければ 3-3 のロールバックで symlink 方式に戻せる。
 
 ---
 
