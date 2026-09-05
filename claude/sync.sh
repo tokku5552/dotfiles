@@ -171,6 +171,7 @@ def kind($from; $to): if $from == null then "+" elif $to == null then "-" else "
         .conflicts += [{key: $k, ancestor: $a.v, local: $l.v, upstream: $u.v}]
       end
   )
+| .composed = $up
 '
 
 RESULT="$(jq -n \
@@ -337,12 +338,30 @@ if [ "$MODE" = "apply" ]; then
   fi
 fi
 
+# The snapshot records the UPSTREAM side we just reconciled against -- the
+# composed base+overlay -- not the merge result.
+#
+# Writing the merge result here loses drift. The merge result carries drift that
+# is not in the base or overlay yet; as an ancestor that drift then reads as
+# "upstream deleted it" on the next run (l == a, u absent), so the next --merge
+# silently reverts it. That is what happens whenever --merge runs twice before
+# --apply, e.g. install.sh followed by sync.sh --apply.
+#
+# With the composed value as the ancestor, unpersisted drift stays visible as a
+# local change (u == a) until --apply writes it into the base or the overlay.
+if [ "$MODE" = "apply" ]; then
+  SNAPSHOT_OUT="$(jq -n --argjson base "$NEW_BASE" --argjson overlay "$NEW_OVERLAY" \
+    '($base + $overlay) | with_entries(select(.value != null))')"
+else
+  SNAPSHOT_OUT="$(jq '.composed' <<<"$RESULT")"
+fi
+
 mkdir -p "$CLAUDE_DIR"
 # The live path may still be the old symlink into the tracked base. Remove it
 # first: writing through it would edit the tracked file directly.
 if [ -L "$LIVE" ]; then rm -f "$LIVE"; fi
 jq -S . <<<"$MERGED" | atomic_write "$LIVE"
-jq -S . <<<"$MERGED" | atomic_write "$SNAPSHOT"
+jq -S . <<<"$SNAPSHOT_OUT" | atomic_write "$SNAPSHOT"
 
 echo "wrote $LIVE"
 echo "wrote $SNAPSHOT"
