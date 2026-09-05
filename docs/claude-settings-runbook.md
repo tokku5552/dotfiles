@@ -81,8 +81,8 @@ bash ~/dotfiles/claude/install.sh
 ```
 
 初回は共通祖先が `{}` なので、ベースとライブで**値が違う**キーは競合として報告され、
-**何も書かれずに exit 3** で止まる。2 台目以降ではほぼ必ず起きる（`effortLevel` や
-`enabledPlugins` は PC ごとに違うため）。報告内容を見て、その PC の値を採用してよければ:
+**何も書かれずに exit 3** で止まる。2 台目以降ではほぼ必ず起きる（`enabledPlugins` は
+PC ごとに違うため）。報告内容を見て、その PC の値を採用してよければ:
 
 ```bash
 bash ~/dotfiles/claude/install.sh --prefer-local
@@ -113,7 +113,7 @@ L=~/.claude/settings.json; B=/tmp/live-backup.json
 [ -e ~/.claude/.settings.snapshot.json ] && echo "OK  スナップショットあり" || echo "NG  スナップショットがない"
 git diff --quiet claude/settings.json && echo "OK  共有ベースはクリーン" \
   || { echo "?   共有ベースに差分あり。中身を確認:"; git diff claude/settings.json | grep '^[+-] *"' | head -20; }
-for k in theme effortLevel advisorModel agentPushNotifEnabled enabledPlugins extraKnownMarketplaces; do
+for k in theme agentPushNotifEnabled enabledPlugins extraKnownMarketplaces; do
   git diff claude/settings.json | grep -q "^[+-] *\"$k\"" && echo "NG  $k が共有ベースに入っている（3-4 へ）"
 done
 jq -e '.permissions.deny|length>0' "$L" >/dev/null && echo "OK  permissions.deny あり" || echo "NG  deny が空"
@@ -223,8 +223,8 @@ rm ~/.claude/settings.json && ln -sf ~/dotfiles/claude/settings.json ~/.claude/s
 
 ### 3-4. 共有ベースに PC 固有のキーが入ってしまった
 
-`git diff claude/settings.json` に `theme` / `effortLevel` / `advisorModel` /
-`agentPushNotifEnabled` / `enabledPlugins` / `extraKnownMarketplaces` が出ている状態。
+`git diff claude/settings.json` に `theme` / `agentPushNotifEnabled` /
+`enabledPlugins` / `extraKnownMarketplaces` が出ている状態。
 そのキーが `claude/sync.sh` の `LOCAL_KEYS` に無いか、`sync.sh` が古い。
 
 まだ push していなければ、共有ベースを捨てて振り分けし直すだけでよい。ライブ設定は
@@ -241,7 +241,7 @@ cd ~/dotfiles && git checkout claude/settings.json && bash ~/dotfiles/claude/syn
 ```bash
 cd ~/dotfiles
 git diff --quiet claude/settings.json && echo "OK  共有ベースはクリーン" || {
-  for k in theme effortLevel advisorModel agentPushNotifEnabled enabledPlugins extraKnownMarketplaces; do
+  for k in theme agentPushNotifEnabled enabledPlugins extraKnownMarketplaces; do
     git diff claude/settings.json | grep -q "^[+-] *\"$k\"" && echo "NG  $k がまだ残っている"
   done
   echo "?   残りの差分（共有したいものなら OK）:"; git diff claude/settings.json | grep '^[+-] *"'
