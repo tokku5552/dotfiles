@@ -28,9 +28,8 @@ Per-tool installers are **not** in the Makefile and must be invoked directly:
   `~/.claude/`, then calls `claude/sync.sh --merge` to **generate**
   `~/.claude/settings.json` from `claude/settings.json` plus this machine's
   `claude/settings.local.json`. That file is not a symlink (see below). On the
-  first run only — while no snapshot exists — it backs the live settings up into
-  `~/.dotfiles_backup_<timestamp>/`. Exits non-zero and writes nothing on a
-  merge conflict.
+  first run only — while no snapshot exists — it copies the live settings to
+  `settings.json.bak`. Exits non-zero and writes nothing on a merge conflict.
 - `bash claude/sync.sh` — reconciles Claude Code's own write-backs with the
   tracked base. No args reports drift (exit 3 if any); `--merge` regenerates the
   live settings; `--apply` first persists this machine's drift into the base or
@@ -112,17 +111,15 @@ Notable pieces:
   `claude/scripts/` on every Bash tool call:
   - `deny-check.sh` reads the `permissions.deny` list, splits the command on
     `;`, `&&`, `||`, and **blocks (exit 2)** any segment matching a
-    `Bash(<glob>)` pattern. It **fails closed**: an unreadable or malformed
-    settings file blocks instead of allowing, because Claude Code drops every
-    setting from a malformed file and "no patterns found" would otherwise turn
-    the guardrail off silently. `CLAUDE_SETTINGS_FILE` overrides the path it
-    reads (used by tests).
+    `Bash(<glob>)` pattern. It reads `~/.claude/settings.json`, i.e. the
+    generated file — so `sync.sh` refuses to install a result that has an empty
+    `permissions.deny` or that no longer runs this hook.
   - `audit-log.py` appends every command to `~/.claude/audit.log` with a UTC
     timestamp. Purely observational (always exits 0).
 - `enabledPlugins` + `extraKnownMarketplaces` wire in plugins from
-  `openai/codex-plugin-cc`, `tokku5552/cc-plugins` and
-  `kouzoh/coding-agent-plugins`. These are the keys most likely to differ per
-  machine, so they are in `LOCAL_KEYS` and drift on them lands in the overlay.
+  `openai/codex-plugin-cc` and `tokku5552/cc-plugins`. These are the keys most
+  likely to differ per machine, so they are in `LOCAL_KEYS` and drift on them
+  lands in the overlay.
 
 When adding a new deny pattern, the glob form `Bash(<pattern>)` is what
 `deny-check.sh` parses — keep that shape. When adding a new hook script, place

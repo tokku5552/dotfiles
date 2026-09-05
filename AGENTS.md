@@ -24,7 +24,7 @@
 - JSON/YAML: keep stable formatting; use VS Code’s default formatters (Prettier for Markdown/JSON, Shell-Format for shell) as configured in `VSCode/settings.json`.
 
 ## Testing Guidelines
-- Scripts: dry-run or validate in a new shell session. Example: `zsh -n zsh/.zshrc` for syntax; `shellcheck brew.sh link.sh claude/sync.sh claude/install.sh` if available.
+- Scripts: dry-run or validate in a new shell session. Example: `zsh -n zsh/.zshrc` for syntax; `shellcheck brew.sh link.sh claude/sync.sh` if available.
 - Claude Code settings: `bash claude/sync.sh` reports drift without writing (exit 3 when there is any), and `bash claude/sync.sh --apply -n` shows what it would persist. Both are safe to run any time. Set `CLAUDE_DIR` to a scratch directory to exercise them without touching `~/.claude`.
 - Post-install checks: confirm symlinks exist (e.g., `ls -l ~/.zshrc`), open a new terminal to verify no startup errors, and run `brew bundle --file .Brewfile --no-lock --verbose` without changes.
 - No unit test framework is used; keep changes small and manually verifiable.
@@ -37,5 +37,5 @@
 ## Security & Configuration Tips
 - Never commit secrets. Use `zsh/.zshenv.local` and `zsh/.zshrc.local` (gitignored); copy from `*.example` and edit locally.
 - Machine-specific Claude Code settings go in `claude/settings.local.json` (gitignored); copy from `claude/settings.local.json.example`.
-- Keep `permissions` and `hooks` in the tracked `claude/settings.json` — never route them to the overlay. `deny-check.sh` fails closed, so a missing deny list is a loud block rather than a silent bypass, but an overlay that *replaces* `permissions` with a weaker list would be a real regression and would only exist on one machine.
+- Keep `permissions` and `hooks` in the tracked `claude/settings.json` — never route them to the overlay. The overlay replaces a key outright, so an overlay `permissions` would silently weaken the guardrails on one machine only. `sync.sh` refuses to install a result with an empty `permissions.deny` or without the `deny-check.sh` hook, but it cannot judge a deny list that is merely shorter.
 - Symlinks overwrite with `ln -sf`; review targets in `link.sh` before running on new machines.
