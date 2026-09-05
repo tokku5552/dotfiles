@@ -187,10 +187,13 @@ RESULT="$(jq -n \
 # ---------------------------------------------------------------------------
 RENDER='
 def short: tojson | if length > 30 then .[0:27] + "..." else . end;
-def target($k): if ($overlay | has($k)) then "overlay"
-                elif ($base | has($k)) then "base"
-                elif ($k | IN($lk[])) then "overlay"
-                else "base" end;
+def target($k):
+                  # LOCAL_KEYS wins outright. Deciding by "where the key lives today" first
+                  # sent every listed key that the base already carries straight back to the
+                  # base -- which is exactly the second machine migrating.
+                  if ($k | IN($lk[])) then "overlay"
+                  elif ($overlay | has($k)) then "overlay"
+                  else "base" end;
 def rows($list; $withTarget):
   if ($list | length) == 0 then "  (none)"
   else ($list | map(
@@ -250,10 +253,13 @@ fi
 # no-op on the base and the same drift would be reported forever.
 # ---------------------------------------------------------------------------
 ROUTE='
-def target($k): if ($overlay | has($k)) then "overlay"
-                elif ($base | has($k)) then "base"
-                elif ($k | IN($lk[])) then "overlay"
-                else "base" end;
+def target($k):
+                  # LOCAL_KEYS wins outright. Deciding by "where the key lives today" first
+                  # sent every listed key that the base already carries straight back to the
+                  # base -- which is exactly the second machine migrating.
+                  if ($k | IN($lk[])) then "overlay"
+                  elif ($overlay | has($k)) then "overlay"
+                  else "base" end;
 reduce ($drift[] | select(.resolved | not)) as $d
   ({base: $base, overlay: $overlay, routes: []};
     $d.key as $k | target($k) as $t
