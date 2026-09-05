@@ -3,3 +3,8 @@
 # Local environment variables (not shared on GitHub)
 zsh/.zshrc.local
 zsh/.zshenv.local
+
+# Machine-local Claude Code settings (see claude/settings.local.json.example).
+# Leading slash so this cannot be confused with the tracked, project-scoped
+# .claude/settings.local.json at the repository root.
+/claude/settings.local.json

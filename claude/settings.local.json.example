@@ -1,0 +1,41 @@
+{
+  "_comment": [
+    "Example machine-local Claude Code settings.",
+    "Copy this file to settings.local.json and edit it, or just let",
+    "`bash claude/sync.sh --apply` fill it in from what Claude Code wrote.",
+    "This file is a template shared on GitHub; settings.local.json is gitignored.",
+    "",
+    "Instructions:",
+    "  1. cp claude/settings.local.json.example claude/settings.local.json",
+    "  2. Remove this _comment key and keep only the settings you need.",
+    "  3. bash claude/install.sh",
+    "",
+    "Semantics: this overlay is applied on top of claude/settings.json at the",
+    "TOP-LEVEL KEY level. A key present here replaces the base's key outright",
+    "(it is not merged entry by entry), and a key set to null removes it.",
+    "Keys absent here fall through to the base unchanged.",
+    "",
+    "Do NOT put permissions or hooks here. They are shared guardrails and",
+    "deny-check.sh treats a missing deny list as a reason to block, not allow.",
+    "",
+    "Not to be confused with the repository's own .claude/settings.local.json,",
+    "which is Claude Code's project-scoped settings file and IS tracked."
+  ],
+
+  "theme": "dark",
+  "effortLevel": "xhigh",
+
+  "extraKnownMarketplaces": {
+    "example-private-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "your-org/your-plugins"
+      },
+      "autoUpdate": true
+    }
+  },
+
+  "enabledPlugins": {
+    "example-plugin@example-private-marketplace": true
+  }
+}
