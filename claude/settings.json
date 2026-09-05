@@ -32,7 +32,10 @@
       "Bash(bash -c *)",
       "Bash(sh -c *)"
     ],
-    "defaultMode": "auto"
+    "defaultMode": "auto",
+    "allow": [
+      "mcp__ccd_session_mgmt__set_session_title"
+    ]
   },
   "model": "opus[1m]",
   "hooks": {
@@ -47,6 +50,16 @@
           {
             "type": "command",
             "command": "python3 ~/.claude/scripts/audit-log.py"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh ~/.claude/scripts/session-title-nudge.sh"
           }
         ]
       }
