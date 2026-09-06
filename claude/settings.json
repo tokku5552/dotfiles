@@ -37,7 +37,7 @@
       "mcp__ccd_session_mgmt__set_session_title"
     ]
   },
-  "model": "sonnet",
+  "model": "sonnet[1m]",
   "hooks": {
     "PreToolUse": [
       {
