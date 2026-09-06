@@ -1,7 +1,6 @@
 {
   "env": {
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
-    "CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING": "1"
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
   "permissions": {
     "deny": [
@@ -37,7 +36,7 @@
       "mcp__ccd_session_mgmt__set_session_title"
     ]
   },
-  "model": "opus[1m]",
+  "model": "sonnet[1m]",
   "hooks": {
     "PreToolUse": [
       {
