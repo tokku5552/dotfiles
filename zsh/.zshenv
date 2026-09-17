@@ -14,3 +14,4 @@ fi
 if [[ -s "$HOME/dotfiles/zsh/.zshenv.local" ]]; then
   source "$HOME/dotfiles/zsh/.zshenv.local"
 fi
+export PATH="$HOME/.local/share/mise/shims:$PATH"
