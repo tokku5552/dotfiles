@@ -1,13 +1,14 @@
 {
   "env": {
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "CLAUDE_CODE_SUBAGENT_MODEL": "sonnet"
   },
   "permissions": {
     "deny": [
       "Bash(git config --global *)",
       "Bash(brew install *)",
       "Bash(npm install -g *)",
-      "Bash(chmod 777 *)",
+      "Bash(chmod *)",
       "Bash(rm -rf /*)",
       "Bash(rm -rf ~/*)",
       "Bash(rm -f /*)",
@@ -26,7 +27,6 @@
       "Read(~/Library/Application Support/**)"
     ],
     "ask": [
-      "Bash(curl *)",
       "Bash(wget *)",
       "Bash(bash -c *)",
       "Bash(sh -c *)"
