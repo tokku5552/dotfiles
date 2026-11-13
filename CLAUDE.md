@@ -91,7 +91,9 @@ tool rewrites gets persisted into the tracked base and starts conflicting across
 machines, which is the failure this whole arrangement exists to prevent.
 
 Do not confuse it with the repository's own `.claude/settings.local.json`, which
-is Claude Code's project-scoped settings file and *is* tracked.
+is Claude Code's project-local settings file. It is gitignored, because Claude
+Code writes "don't ask again" approvals into it in plain text and this repo is
+public. Project settings meant to be shared go in `.claude/settings.json`.
 
 ## Claude Code settings (`claude/settings.json`)
 

@@ -5,6 +5,9 @@ zsh/.zshrc.local
 zsh/.zshenv.local
 
 # Machine-local Claude Code settings (see claude/settings.local.json.example).
-# Leading slash so this cannot be confused with the tracked, project-scoped
-# .claude/settings.local.json at the repository root.
 /claude/settings.local.json
+
+# Claude Code's project-local settings for this repo. "Don't ask again" approvals
+# are written here in plain text, so it must never be pushed to this public repo.
+# Shared project settings live in .claude/settings.json.
+/.claude/settings.local.json
